@@ -8,6 +8,9 @@ import java.net.URI;
 
 public abstract class WebsocketClient extends WebSocketClient {
 
+    String accountname;
+    String exchange;
+
     protected ObjectMapper mapper = new ObjectMapper();
 
     public WebsocketClient(URI serverURI) {
@@ -29,4 +32,21 @@ public abstract class WebsocketClient extends WebSocketClient {
 
     @Override
     public void onError(Exception ex) { ex.printStackTrace(); }
+
+
+    public String getAccountname() {
+        return accountname;
+    }
+
+    public void setAccountname(String accountname) {
+        this.accountname = accountname;
+    }
+
+    public String getExchange() {
+        return exchange;
+    }
+
+    public void setExchange(String exchange) {
+        this.exchange = exchange;
+    }
 }

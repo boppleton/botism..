@@ -1,4 +1,8 @@
 import data.Accounts;
+import data.Orders;
+import data.Positions;
+import data.Websockets;
+import exchange.bitmex.BitmexReceiver;
 import gui.GUI;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -22,7 +26,14 @@ public class Main {
 
     public static void main(String[] args) {
         startGUI();
-        startAccountsList();
+        startLists();
+
+        startReceivers();
+    }
+
+    private static void startReceivers() {
+
+        BitmexReceiver bitmexReceiver = new BitmexReceiver();
     }
 
     private static void startGUI() {
@@ -54,7 +65,19 @@ public class Main {
     }
 
     // access the list of active accounts by using Accounts.getInstance()
-    private static void startAccountsList() {
+    private static void startLists() {
         Accounts accountsList = new Accounts();
+
+        Websockets websockets = new Websockets();
+
+        Orders orders = new Orders();
+
+        Positions positions = new Positions();
+
+    }
+
+
+    private static void startWebsocketsList() {
+
     }
 }

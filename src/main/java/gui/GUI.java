@@ -15,6 +15,8 @@ public class GUI extends JFrame {
     public GUI(String title) {
         super(title);
         getContentPane().setLayout(new BorderLayout());
+
+        // use GUI.getInstance() to access the methods in this thread to update components
         gui = this;
 
         // starts top file bar
@@ -23,6 +25,47 @@ public class GUI extends JFrame {
         // messages display
         statusToolbar();
 
+        middleTabs();
+
+        bottomLog();
+
+
+    }
+
+    private JTextArea logArea;
+    private void bottomLog() {
+
+        logArea = new JTextArea(5, 1);
+        logArea.setEditable(false);
+
+        JScrollPane logScrollPane = new JScrollPane(logArea);
+        logScrollPane.setBorder(BorderFactory.createTitledBorder("log"));
+
+        add(logScrollPane, BorderLayout.SOUTH);
+    }
+
+    public void log(String logMessage) {
+        logArea.insert(logMessage + "\n", 0);
+    }
+
+    private void middleTabs() {
+
+        JTabbedPane tabpane = new JTabbedPane();
+        add(tabpane, BorderLayout.CENTER);
+
+
+        tabpane.add("home", new HomePanel() );
+
+        tabpane.add("scaled order", new ScaledOrderPanel());
+
+        tabpane.add("limit chase", new JPanel());
+
+
+
+    }
+
+    // stuff to do when account changes
+    public void onAccountChange() {
 
     }
 
@@ -37,7 +80,8 @@ public class GUI extends JFrame {
         toolbar.setRollover(false); // display borders around buttons
         toolbar.setBackground(new Color(5,5,10));
 
-        toolbarStatusLabel = new JLabel("> disconnected");
+        toolbarStatusLabel = new JLabel();
+        updateTopToolbarText("welcome");
         toolbar.add(toolbarStatusLabel);
 
         toolbar.add(Box.createHorizontalGlue());
@@ -45,8 +89,6 @@ public class GUI extends JFrame {
         add(toolbar, BorderLayout.NORTH);
 
     }
-
-
 
     // ran after an account is added to update the list, or at program start
     public void updateMenuBar() {
@@ -80,6 +122,7 @@ public class GUI extends JFrame {
     }
 
     //update message bar
-    public void updateTopToolbarText(String s) { toolbarStatusLabel.setText("["+currentExchange+"]-("+currentAccount+") |> " + s); }
+    public void updateTopToolbarText(String s) { toolbarStatusLabel.setText("["+currentExchange+"] ["+currentAccount+"] > " + s); }
+
 
 }
