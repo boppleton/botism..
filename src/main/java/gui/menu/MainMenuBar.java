@@ -103,6 +103,7 @@ public class MainMenuBar extends JMenuBar {
 
                                 Thread t = new Thread(() -> {
                                     try {
+                                        System.out.println(accountLine);
                                         Accounts.getInstance().connectToAccount(accountLine);
                                     } catch (IOException e1) {
                                         e1.printStackTrace();
